@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#7a271c">
+    <title>Painel | Sabor de Mae</title>
+    <link rel="stylesheet" href="painel.css?v=print1">
+  </head>
+  <body>
+    <header class="panel-topbar">
+      <a class="brand" href="index.html">
+        <span>Sabor de Mae</span>
+        <small>Painel do restaurante</small>
+      </a>
+      <nav aria-label="Atalhos do painel">
+        <a href="index.html">Site</a>
+        <button id="signOutButton" class="ghost-button hidden" type="button">Sair</button>
+      </nav>
+    </header>
+
+    <main class="panel-shell">
+      <section id="loginView" class="login-card">
+        <p class="eyebrow">Acesso seguro</p>
+        <h1>Entrar no painel</h1>
+        <p class="muted">Use o e-mail cadastrado no Supabase para acompanhar pedidos e editar o cardapio.</p>
+
+        <form id="loginForm" class="stacked-form">
+          <label>
+            E-mail
+            <input id="loginEmail" type="email" autocomplete="email" required placeholder="restaurante@email.com">
+          </label>
+          <label>
+            Senha
+            <input id="loginPassword" type="password" autocomplete="current-password" required placeholder="Sua senha">
+          </label>
+          <button class="primary-button" type="submit">Entrar</button>
+        </form>
+        <p id="loginMessage" class="message" role="status"></p>
+      </section>
+
+      <section id="dashboardView" class="dashboard hidden">
+        <div class="dashboard-heading">
+          <div>
+            <p class="eyebrow">Operacao</p>
+            <h1>Painel administrativo</h1>
+            <p class="muted">Acompanhe pedidos recebidos pelo site e mantenha o cardapio atualizado.</p>
+          </div>
+          <div class="header-actions">
+            <button id="soundButton" class="ghost-button" type="button">Ativar som</button>
+            <button id="refreshButton" class="primary-button compact" type="button">Atualizar</button>
+          </div>
+        </div>
+
+        <div id="liveStatus" class="live-status">
+          <span class="live-dot"></span>
+          <strong>Monitorando pedidos</strong>
+          <span id="lastUpdateText">Atualizando agora</span>
+        </div>
+
+        <section class="print-settings" aria-label="Impressao automatica">
+          <div>
+            <p class="eyebrow">Impressao</p>
+            <h2>Impressora termica</h2>
+            <p class="muted">Deixe o servidor local ligado neste computador para imprimir pedidos novos automaticamente.</p>
+          </div>
+          <form id="printSettingsForm" class="print-form">
+            <label class="switch-row">
+              <input id="autoPrintEnabled" type="checkbox">
+              Imprimir pedidos novos automaticamente
+            </label>
+            <label>
+              Servidor local
+              <input id="printServerUrl" type="url" placeholder="http://127.0.0.1:8787">
+            </label>
+            <label>
+              IP da impressora
+              <input id="printerIp" placeholder="192.168.1.223">
+            </label>
+            <label>
+              Porta
+              <input id="printerPort" type="number" min="1" max="65535" placeholder="9100">
+            </label>
+            <label>
+              API Key (opcional)
+              <input id="printApiKey" type="password" placeholder="Deixe vazio se nao configurou PRINT_API_KEY">
+            </label>
+            <div class="form-actions wide">
+              <button class="primary-button" type="submit">Salvar impressao</button>
+              <button id="testPrintButton" class="ghost-button" type="button">Testar impressao</button>
+            </div>
+            <p id="printStatus" class="field-hint wide">A impressao automatica fica salva apenas neste navegador.</p>
+          </form>
+        </section>
+
+        <section class="metrics" aria-label="Resumo">
+          <article>
+            <span>Pedidos novos</span>
+            <strong id="newOrdersMetric">0</strong>
+          </article>
+          <article>
+            <span>Vendas hoje</span>
+            <strong id="salesMetric">R$ 0,00</strong>
+          </article>
+          <article>
+            <span>Produtos ativos</span>
+            <strong id="activeProductsMetric">0</strong>
+          </article>
+        </section>
+
+        <div class="tabs" role="tablist" aria-label="Secoes do painel">
+          <button class="tab-button active" data-panel-tab="orders" type="button">Pedidos</button>
+          <button class="tab-button" data-panel-tab="products" type="button">Produtos</button>
+        </div>
+
+        <section id="ordersPanel" class="panel-section">
+          <div class="section-title">
+            <div>
+              <p class="eyebrow">Pedidos do site</p>
+              <h2>Fila de atendimento</h2>
+            </div>
+            <select id="orderStatusFilter" aria-label="Filtrar pedidos por status">
+              <option value="all">Todos</option>
+              <option value="novo">Novo</option>
+              <option value="aceito">Aceito</option>
+              <option value="preparando">Preparando</option>
+              <option value="finalizado">Finalizado</option>
+              <option value="cancelado">Cancelado</option>
+            </select>
+          </div>
+          <div id="ordersList" class="orders-list"></div>
+        </section>
+
+        <section id="productsPanel" class="panel-section hidden">
+          <div class="section-title">
+            <div>
+              <p class="eyebrow">Cardapio</p>
+              <h2>Produtos</h2>
+            </div>
+          </div>
+
+          <form id="productForm" class="product-form">
+            <input id="productId" type="hidden">
+            <label>
+              Nome
+              <input id="productName" required placeholder="Ex: Marmitex media">
+            </label>
+            <label>
+              Categoria
+              <select id="productCategory" required>
+                <option value="marmitex">Marmitex</option>
+                <option value="local">Consumo local</option>
+                <option value="bebidas">Bebidas</option>
+              </select>
+            </label>
+            <label>
+              Preco
+              <input id="productPrice" required type="number" min="0" step="0.01" placeholder="0,00">
+            </label>
+            <input id="productOrder" type="hidden">
+            <label class="wide">
+              Descricao
+              <textarea id="productDescription" rows="3" placeholder="Texto que aparece no cardapio"></textarea>
+            </label>
+            <label class="wide">
+              Imagem
+              <div class="image-upload-row">
+                <input id="productImage" placeholder="assets/marmitex-menu.png ou URL da foto">
+                <label class="upload-button" for="productImageFile">Enviar foto</label>
+                <input id="productImageFile" class="file-input" type="file" accept="image/*">
+              </div>
+              <span id="imageUploadMessage" class="field-hint">Use uma foto quadrada ou horizontal, com boa luz.</span>
+            </label>
+            <label class="switch-row">
+              <input id="productActive" type="checkbox" checked>
+              Produto ativo no site
+            </label>
+            <div class="form-actions wide">
+              <button class="primary-button" type="submit">Salvar produto</button>
+              <button id="clearProductButton" class="ghost-button" type="button">Novo produto</button>
+            </div>
+          </form>
+
+          <div id="productsList" class="products-list"></div>
+        </section>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js?v=supabase2"></script>
+    <script src="supabase-client.js?v=supabase1"></script>
+    <script src="painel.js?v=print1"></script>
+  </body>
+</html>

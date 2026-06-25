@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#7a271c">
+    <title>Sabor de Mae | Marmitex e comida caseira</title>
+    <link rel="stylesheet" href="site.css?v=confirm1">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#inicio">
+        <span>Sabor de Mae</span>
+        <small>Rua Rio Negro, 1890</small>
+      </a>
+      <nav aria-label="Menu principal">
+        <a href="#cardapio">Cardapio</a>
+        <a href="#pedido">Pedido</a>
+        <a href="#endereco">Endereco</a>
+        <a class="nav-action" href="#pedido">Pedir agora</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="inicio" class="hero">
+        <img src="assets/sabor-de-mae-hero.png" alt="Marmitex caseira do restaurante Sabor de Mae">
+        <div class="hero-copy">
+          <p class="eyebrow">Marmitex caseira em Porto Velho</p>
+          <h1>Sabor de Mae</h1>
+          <p>Almoco feito com capricho, porcoes bem servidas e atendimento direto pelo WhatsApp.</p>
+          <div class="actions">
+            <a class="primary-action" href="#cardapio">Montar meu pedido</a>
+            <a class="secondary-action" href="#endereco">Ver endereco</a>
+          </div>
+          <div class="trust-row" aria-label="Diferenciais">
+            <span>Comida do dia</span>
+            <span>Retirada ou entrega</span>
+            <span>Pedido direto</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="intro-band">
+        <article>
+          <strong>1</strong>
+          <span>Escolha os itens do cardapio</span>
+        </article>
+        <article>
+          <strong>2</strong>
+          <span>Informe entrega, pagamento e observacoes</span>
+        </article>
+        <article>
+          <strong>3</strong>
+          <span>Finalize direto pelo site</span>
+        </article>
+      </section>
+
+      <section id="cardapio" class="menu-section">
+        <div class="section-heading">
+          <p class="eyebrow">Cardapio online</p>
+          <h2>Escolha seus itens</h2>
+          <p>Toque em um produto para adicionar ao carrinho. Os valores podem ser ajustados pela equipe do restaurante.</p>
+        </div>
+
+        <div class="category-tabs" aria-label="Categorias do cardapio">
+          <button class="category-tab active" data-category="all" type="button">Todos</button>
+          <button class="category-tab" data-category="marmitex" type="button">Marmitex</button>
+          <button class="category-tab" data-category="local" type="button">Consumo local</button>
+          <button class="category-tab" data-category="bebidas" type="button">Bebidas</button>
+        </div>
+
+        <div class="menu-groups">
+          <section class="menu-group" data-menu-group="marmitex">
+            <div class="menu-group-heading">
+              <h3>Marmitex</h3>
+              <p>Porcoes para entrega ou retirada.</p>
+            </div>
+            <div class="menu-grid">
+          <article class="menu-item" data-category="marmitex" data-add-item="Marmitex pequena" data-price="16" tabindex="0">
+            <img class="menu-photo" src="assets/marmitex-menu.png" alt="Marmitex pequena com arroz, feijao, mistura e salada">
+            <div class="item-copy">
+              <span class="item-tag">Marmitex</span>
+              <h3>Marmitex pequena</h3>
+              <p>Arroz, feijao, mistura do dia, salada e acompanhamento.</p>
+            </div>
+            <div class="menu-action">
+              <strong>R$ 16,00</strong>
+              <button type="button">Adicionar</button>
+            </div>
+          </article>
+
+          <article class="menu-item" data-category="marmitex" data-add-item="Marmitex grande" data-price="22" tabindex="0">
+            <img class="menu-photo" src="assets/marmitex-menu.png" alt="Marmitex grande bem servida">
+            <div class="item-copy">
+              <span class="item-tag">Mais pedida</span>
+              <h3>Marmitex grande</h3>
+              <p>Porcao reforcada para quem quer uma refeicao completa.</p>
+            </div>
+            <div class="menu-action">
+              <strong>R$ 22,00</strong>
+              <button type="button">Adicionar</button>
+            </div>
+          </article>
+            </div>
+          </section>
+
+          <section class="menu-group" data-menu-group="local">
+            <div class="menu-group-heading">
+              <h3>Consumo local</h3>
+              <p>Opcoes para comer no restaurante.</p>
+            </div>
+            <div class="menu-grid">
+          <article class="menu-item" data-category="local" data-add-item="Prato feito" data-price="18" tabindex="0">
+            <img class="menu-photo" src="assets/prato-feito-menu.png" alt="Prato feito com arroz, feijao, carne e salada">
+            <div class="item-copy">
+              <span class="item-tag">Consumo local</span>
+              <h3>Prato feito</h3>
+              <p>Refeicao servida no restaurante, ideal para comer no local.</p>
+            </div>
+            <div class="menu-action">
+              <strong>R$ 18,00</strong>
+              <button type="button">Adicionar</button>
+            </div>
+          </article>
+            </div>
+          </section>
+
+          <section class="menu-group" data-menu-group="bebidas">
+            <div class="menu-group-heading">
+              <h3>Bebidas</h3>
+              <p>Bebidas geladas para acompanhar.</p>
+            </div>
+            <div class="menu-grid">
+          <article class="menu-item" data-category="bebidas" data-add-item="Refrigerante lata" data-price="6" tabindex="0">
+            <img class="menu-photo" src="assets/refrigerante-menu.png" alt="Refrigerante lata gelado">
+            <div class="item-copy">
+              <span class="item-tag">Bebida</span>
+              <h3>Refrigerante lata</h3>
+              <p>Bebida gelada para acompanhar sua refeicao.</p>
+            </div>
+            <div class="menu-action">
+              <strong>R$ 6,00</strong>
+              <button type="button">Adicionar</button>
+            </div>
+          </article>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section id="pedido" class="order-section" aria-labelledby="pedido-titulo">
+        <div class="section-heading">
+          <p class="eyebrow">Pedido direto</p>
+          <h2 id="pedido-titulo">Finalize direto pelo site</h2>
+          <p>O pedido entra no painel do restaurante com itens, endereco, forma de pagamento e observacoes.</p>
+        </div>
+
+        <div class="order-layout">
+          <aside class="cart-panel" aria-label="Resumo do pedido">
+            <div class="panel-title">
+              <div>
+                <p class="eyebrow">Carrinho</p>
+                <h3>Resumo do pedido</h3>
+              </div>
+              <span id="cartCount">0 itens</span>
+            </div>
+            <div id="cartItems" class="cart-list"></div>
+            <div class="cart-total">
+              <span>Total estimado</span>
+              <strong id="cartTotal">R$ 0,00</strong>
+            </div>
+          </aside>
+
+          <form id="orderForm" class="customer-form">
+            <div class="form-header">
+              <p class="eyebrow">Dados do cliente</p>
+              <h3>Como devemos preparar?</h3>
+            </div>
+
+            <label>
+              <span>Nome</span>
+              <input id="customerName" type="text" placeholder="Ex: Ana Souza" required>
+            </label>
+
+            <div class="form-row">
+              <label>
+                <span>Recebimento</span>
+                <select id="deliveryType">
+                  <option value="Entrega">Entrega</option>
+                  <option value="Retirada">Retirada no restaurante</option>
+                </select>
+              </label>
+              <label>
+                <span>Pagamento</span>
+                <select id="paymentMethod">
+                  <option value="Pix">Pix</option>
+                  <option value="Dinheiro">Dinheiro</option>
+                  <option value="Cartao">Cartao</option>
+                </select>
+              </label>
+            </div>
+
+            <label>
+              <span>Endereco ou ponto de referencia</span>
+              <input id="customerAddress" type="text" placeholder="Rua, numero, bairro ou retirada">
+            </label>
+
+            <label id="changeForField" class="conditional-field hidden">
+              <span>Troco</span>
+              <input id="changeFor" type="text" placeholder="Se for dinheiro: troco para quanto?">
+            </label>
+
+            <label>
+              <span>Observacoes</span>
+              <textarea id="customerNote" rows="4" placeholder="Ex: sem cebola, entregar no portao, mandar talher..."></textarea>
+            </label>
+
+            <div class="form-actions">
+              <button id="submitOrderButton" type="submit">Finalizar pedido</button>
+              <button type="button" id="copyOrderButton" class="copy-button">Copiar resumo</button>
+            </div>
+
+            <div id="orderConfirmation" class="order-confirmation hidden" role="status">
+              <div class="confirmation-icon" aria-hidden="true">✓</div>
+              <p class="eyebrow">Pedido confirmado</p>
+              <h3>Seu pedido foi enviado para o restaurante.</h3>
+              <p id="confirmationText">Acompanhe pelo atendimento do Sabor de Mae.</p>
+              <a id="whatsappFallback" class="secondary-action" href="#" target="_blank" rel="noreferrer">Enviar tambem pelo WhatsApp</a>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section id="endereco" class="location-section">
+        <div class="location-copy">
+          <p class="eyebrow">Atendimento</p>
+          <h2>Comida caseira, pedido direto e retirada facilitada.</h2>
+          <p>Fale com o Sabor de Mae pelo WhatsApp para combinar entrega, retirada ou tirar duvidas sobre o cardapio do dia.</p>
+          <div class="location-actions">
+            <a class="primary-action" href="#pedido">Montar pedido</a>
+            <a class="secondary-action" href="https://wa.me/5569992824311" target="_blank" rel="noreferrer">Chamar no WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="location-panel">
+          <div class="address-card">
+            <p class="eyebrow">Onde estamos</p>
+            <h3>Rua Rio Negro, 1890</h3>
+            <p>Atendimento para retirada no restaurante, entrega combinada e pedidos diretos.</p>
+            <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Rua%20Rio%20Negro%201890" target="_blank" rel="noreferrer">Abrir no mapa</a>
+          </div>
+          <div class="service-grid" aria-label="Informacoes de atendimento">
+            <article>
+              <strong>Retirada</strong>
+              <span>Combine o melhor horario pelo WhatsApp.</span>
+            </article>
+            <article>
+              <strong>Entrega</strong>
+              <span>Disponivel conforme localidade e horario.</span>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <strong>Sabor de Mae</strong>
+        <span>Rua Rio Negro, 1890</span>
+      </div>
+      <a href="https://wa.me/5569992824311" target="_blank" rel="noreferrer">Pedido direto pelo WhatsApp</a>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="supabase-client.js?v=orders1"></script>
+    <script src="site.js?v=confirm1"></script>
+  </body>
+</html>

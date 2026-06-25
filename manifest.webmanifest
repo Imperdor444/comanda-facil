@@ -1,0 +1,17 @@
+{
+  "name": "Comanda Fácil",
+  "short_name": "Comanda",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f6f3ec",
+  "theme_color": "#18735f",
+  "description": "Sistema simples de comandas, caixa e impressão para restaurante.",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

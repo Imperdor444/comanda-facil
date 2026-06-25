@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#18735f">
+    <title>Comanda Fácil</title>
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="stylesheet" href="styles.css?v=2">
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">Sabor de Mae</p>
+        <h1>Comanda Fácil</h1>
+      </div>
+      <div class="header-actions">
+        <a class="site-link" href="index.html">Site</a>
+        <button class="icon-button" id="installButton" hidden title="Instalar app">+</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="summary-band">
+        <div>
+          <span>Vendas hoje</span>
+          <strong id="todayTotal">R$ 0,00</strong>
+        </div>
+        <div>
+          <span>Comandas abertas</span>
+          <strong id="openOrders">0</strong>
+        </div>
+      </section>
+
+      <nav class="tabs" aria-label="Seções">
+        <button class="tab active" data-view="ordersView">Comandas</button>
+        <button class="tab" data-view="productsView">Produtos</button>
+        <button class="tab" data-view="reportsView">Caixa</button>
+        <button class="tab" data-view="settingsView">Ajustes</button>
+      </nav>
+
+      <section id="ordersView" class="view active">
+        <div class="toolbar">
+          <input id="orderNameInput" type="text" placeholder="Mesa 1, Balcão, Cliente...">
+          <button id="newOrderButton">Abrir</button>
+        </div>
+        <div id="ordersList" class="stack"></div>
+      </section>
+
+      <section id="productsView" class="view">
+        <form id="productForm" class="form-grid">
+          <input id="productName" type="text" placeholder="Produto" required>
+          <input id="productPrice" type="number" min="0" step="0.01" placeholder="Preço" required>
+          <input id="productCategory" type="text" placeholder="Categoria">
+          <button type="submit">Salvar</button>
+        </form>
+        <div id="productsList" class="stack"></div>
+      </section>
+
+      <section id="reportsView" class="view">
+        <div class="report-box">
+          <span>Total vendido hoje</span>
+          <strong id="reportTotal">R$ 0,00</strong>
+        </div>
+        <div id="salesList" class="stack"></div>
+      </section>
+
+      <section id="settingsView" class="view">
+        <form id="settingsForm" class="form-grid">
+          <input id="restaurantName" type="text" placeholder="Nome do restaurante">
+          <input id="printerWidth" type="number" min="32" max="48" placeholder="Largura: 32 ou 48">
+          <input id="printerIp" type="text" placeholder="IP da impressora">
+          <input id="printerPort" type="number" min="1" max="65535" placeholder="Porta">
+          <input id="printServerUrl" type="url" placeholder="Servidor de impressão">
+          <button type="submit">Salvar ajustes</button>
+        </form>
+        <button id="testPrinterButton" class="wide-button">Testar impressão</button>
+        <p class="hint">
+          Para impressora de rede, deixe o servidor de impressão ligado na mesma rede da impressora.
+        </p>
+      </section>
+    </main>
+
+    <div id="orderDrawer" class="drawer" hidden>
+      <div class="drawer-panel">
+        <div class="drawer-header">
+          <div>
+            <p class="eyebrow">Comanda</p>
+            <h2 id="drawerTitle"></h2>
+          </div>
+          <button class="icon-button" id="closeDrawer" title="Fechar">x</button>
+        </div>
+        <div id="drawerItems" class="stack"></div>
+        <h3>Adicionar item</h3>
+        <div id="productPicker" class="product-picker"></div>
+        <div class="drawer-footer">
+          <strong id="drawerTotal">R$ 0,00</strong>
+          <button id="closeOrderButton">Fechar conta</button>
+        </div>
+      </div>
+    </div>
+
+    <template id="printTemplate">
+      <pre id="receiptText"></pre>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
