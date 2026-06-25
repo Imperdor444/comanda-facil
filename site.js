@@ -386,6 +386,9 @@ function categoryLabel(category) {
     marmitex: "Marmitex",
     local: "Consumo local",
     bebidas: "Bebida",
+    espetinhos: "Espetinho",
+    porcoes: "Porcao",
+    sobremesas: "Sobremesa",
   }[category] || "Cardapio";
 }
 

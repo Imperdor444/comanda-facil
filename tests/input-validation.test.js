@@ -54,7 +54,7 @@ function validateProductPayload(payload) {
     errors.push("name invalid");
   }
 
-  if (!["marmitex", "local", "bebidas"].includes(payload.category)) {
+  if (!["marmitex", "local", "bebidas", "espetinhos", "porcoes", "sobremesas"].includes(payload.category)) {
     errors.push("category invalid");
   }
 
@@ -212,7 +212,7 @@ describe("validateProductPayload", () => {
   });
 
   it("should accept all valid categories", () => {
-    for (const cat of ["marmitex", "local", "bebidas"]) {
+    for (const cat of ["marmitex", "local", "bebidas", "espetinhos", "porcoes", "sobremesas"]) {
       const product = { ...validProduct, category: cat };
       assert.deepEqual(validateProductPayload(product), [], `Failed for category: ${cat}`);
     }
