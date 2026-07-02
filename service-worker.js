@@ -1,8 +1,8 @@
-const CACHE_NAME = "comanda-facil-v21";
+const CACHE_NAME = "comanda-facil-v30";
 const FILES = [
   "./",
   "./index.html",
-  "./admin.html",
+  "./index.html",
   "./styles.css?v=2",
   "./site.css",
   "./site.js",
@@ -17,8 +17,12 @@ const FILES = [
   "./assets/marmitex-menu.png",
   "./assets/prato-feito-menu.png",
   "./assets/refrigerante-menu.png",
+  "./assets/no-image.png",
+  "./assets/products/marmitex.jpg",
+  "./assets/products/espetinhos.jpg",
+  "./assets/products/bebidas.jpg",
+  "./assets/products/sobremesas.jpg",
   "./assets/qr-sabor-de-mae.png",
-  "./app.js",
   "./manifest.webmanifest",
   "./icon.svg",
 ];
@@ -37,6 +41,12 @@ self.addEventListener("activate", (event) => {
 
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
+  const url = new URL(event.request.url);
+  if (url.pathname.endsWith(".js")) {
+    event.respondWith(fetch(event.request).catch(() => caches.match(event.request)));
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request).then((cached) => cached || fetch(event.request))
   );

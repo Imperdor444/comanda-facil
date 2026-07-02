@@ -63,6 +63,7 @@ const server = http.createServer(async (request, response) => {
     await sendToPrinter(printerIp, printerPort, receipt);
     sendJson(response, 200, { ok: true });
   } catch (error) {
+    console.error("[500 ERROR]", error.message, error.stack);
     sendJson(response, 500, { ok: false, error: error.message });
   }
 });

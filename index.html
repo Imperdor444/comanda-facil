@@ -4,34 +4,46 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#7a271c">
-    <title>Sabor de Mae | Marmitex e comida caseira</title>
-    <link rel="icon" href="icon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="site.css?v=confirm1">
+    <title>Sabor de Mãe | Marmitex e comida caseira</title>
+    <script>
+      try {
+        const theme = localStorage.getItem("saborDeMaeTheme");
+        if (theme === "dark") document.documentElement.dataset.theme = "dark";
+      } catch {}
+    </script>
+    <link rel="stylesheet" href="site.css?v=theme3">
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="#inicio">
-        <span>Sabor de Mae</span>
-        <small>Rua Rio Negro, 1890</small>
-      </a>
+      <div class="header-brand-row">
+        <a class="brand" href="#inicio">
+          <span>Sabor de Mãe</span>
+          <small>Rua Rio Negro, 1890</small>
+        </a>
+        <button id="themeToggle" class="theme-toggle" type="button" aria-label="Alternar modo escuro">
+          <span class="theme-icon" aria-hidden="true">☾</span>
+          <span id="themeToggleText">Escuro</span>
+        </button>
+      </div>
       <nav aria-label="Menu principal">
-        <a href="#cardapio">Cardapio</a>
+        <a href="#cardapio">Cardápio</a>
+        <a href="#rastreamento" id="trackOrderNavLink">Acompanhar Pedido</a>
         <a href="#pedido">Pedido</a>
-        <a href="#endereco">Endereco</a>
+        <a href="#endereco">Endereço</a>
         <a class="nav-action" href="#pedido">Pedir agora</a>
       </nav>
     </header>
 
     <main>
       <section id="inicio" class="hero">
-        <img src="assets/sabor-de-mae-hero.png" alt="Marmitex caseira do restaurante Sabor de Mae">
+        <img src="assets/sabor-de-mae-hero.png" alt="Marmitex caseira do restaurante Sabor de Mãe">
         <div class="hero-copy">
           <p class="eyebrow">Marmitex caseira em Porto Velho</p>
-          <h1>Sabor de Mae</h1>
-          <p>Almoco feito com capricho, porcoes bem servidas e atendimento direto pelo WhatsApp.</p>
+          <h1>Sabor de Mãe</h1>
+          <p>Almoço feito com capricho, porções bem servidas e atendimento direto pelo WhatsApp.</p>
           <div class="actions">
             <a class="primary-action" href="#cardapio">Montar meu pedido</a>
-            <a class="secondary-action" href="#endereco">Ver endereco</a>
+            <a class="secondary-action" href="#endereco">Ver endereço</a>
           </div>
           <div class="trust-row" aria-label="Diferenciais">
             <span>Comida do dia</span>
@@ -44,11 +56,11 @@
       <section class="intro-band">
         <article>
           <strong>1</strong>
-          <span>Escolha os itens do cardapio</span>
+          <span>Escolha os itens do cardápio</span>
         </article>
         <article>
           <strong>2</strong>
-          <span>Informe entrega, pagamento e observacoes</span>
+          <span>Informe entrega, pagamento e observações</span>
         </article>
         <article>
           <strong>3</strong>
@@ -58,129 +70,28 @@
 
       <section id="cardapio" class="menu-section">
         <div class="section-heading">
-          <p class="eyebrow">Cardapio online</p>
+          <p class="eyebrow">Cardápio online</p>
           <h2>Escolha seus itens</h2>
           <p>Toque em um produto para adicionar ao carrinho. Os valores podem ser ajustados pela equipe do restaurante.</p>
         </div>
 
-        <div class="category-tabs" aria-label="Categorias do cardapio">
-          <button class="category-tab active" data-category="all" type="button">Todos</button>
-          <button class="category-tab" data-category="marmitex" type="button">Marmitex</button>
-          <button class="category-tab" data-category="local" type="button">Consumo local</button>
-          <button class="category-tab" data-category="espetinhos" type="button">Espetinhos</button>
-          <button class="category-tab" data-category="porcoes" type="button">Porcoes</button>
-          <button class="category-tab" data-category="sobremesas" type="button">Sobremesas</button>
-          <button class="category-tab" data-category="bebidas" type="button">Bebidas</button>
+        <div class="category-tabs" aria-label="Categorias do cardápio" id="dynamicCategoryTabs">
         </div>
 
-        <div class="menu-groups">
-          <section class="menu-group" data-menu-group="marmitex">
-            <div class="menu-group-heading">
-              <h3>Marmitex</h3>
-              <p>Porcoes para entrega ou retirada.</p>
-            </div>
-            <div class="menu-grid">
-          <article class="menu-item" data-category="marmitex" data-add-item="Marmitex pequena" data-price="16" tabindex="0">
-            <img class="menu-photo" src="assets/marmitex-menu.png" alt="Marmitex pequena com arroz, feijao, mistura e salada">
-            <div class="item-copy">
-              <span class="item-tag">Marmitex</span>
-              <h3>Marmitex pequena</h3>
-              <p>Arroz, feijao, mistura do dia, salada e acompanhamento.</p>
-            </div>
-            <div class="menu-action">
-              <strong>R$ 16,00</strong>
-              <button type="button">Adicionar</button>
-            </div>
-          </article>
+        <div class="search-bar-container">
+          <input id="menuSearchInput" type="text" placeholder="🔍 Buscar no cardápio...">
+        </div>
 
-          <article class="menu-item" data-category="marmitex" data-add-item="Marmitex grande" data-price="22" tabindex="0">
-            <img class="menu-photo" src="assets/marmitex-menu.png" alt="Marmitex grande bem servida">
-            <div class="item-copy">
-              <span class="item-tag">Mais pedida</span>
-              <h3>Marmitex grande</h3>
-              <p>Porcao reforcada para quem quer uma refeicao completa.</p>
-            </div>
-            <div class="menu-action">
-              <strong>R$ 22,00</strong>
-              <button type="button">Adicionar</button>
-            </div>
-          </article>
-            </div>
-          </section>
-
-          <section class="menu-group" data-menu-group="local">
-            <div class="menu-group-heading">
-              <h3>Consumo local</h3>
-              <p>Opcoes para comer no restaurante.</p>
-            </div>
-            <div class="menu-grid">
-          <article class="menu-item" data-category="local" data-add-item="Prato feito" data-price="18" tabindex="0">
-            <img class="menu-photo" src="assets/prato-feito-menu.png" alt="Prato feito com arroz, feijao, carne e salada">
-            <div class="item-copy">
-              <span class="item-tag">Consumo local</span>
-              <h3>Prato feito</h3>
-              <p>Refeicao servida no restaurante, ideal para comer no local.</p>
-            </div>
-            <div class="menu-action">
-              <strong>R$ 18,00</strong>
-              <button type="button">Adicionar</button>
-            </div>
-          </article>
-            </div>
-          </section>
-
-          <section class="menu-group" data-menu-group="bebidas">
-            <div class="menu-group-heading">
-              <h3>Bebidas</h3>
-              <p>Bebidas geladas para acompanhar.</p>
-            </div>
-            <div class="menu-grid">
-          <article class="menu-item" data-category="bebidas" data-add-item="Refrigerante lata" data-price="6" tabindex="0">
-            <img class="menu-photo" src="assets/refrigerante-menu.png" alt="Refrigerante lata gelado">
-            <div class="item-copy">
-              <span class="item-tag">Bebida</span>
-              <h3>Refrigerante lata</h3>
-              <p>Bebida gelada para acompanhar sua refeicao.</p>
-            </div>
-            <div class="menu-action">
-              <strong>R$ 6,00</strong>
-              <button type="button">Adicionar</button>
-            </div>
-          </article>
-            </div>
-          </section>
-
-          <section class="menu-group" data-menu-group="espetinhos">
-            <div class="menu-group-heading">
-              <h3>Espetinhos</h3>
-              <p>Espetinhos assados na brasa, perfeitos para petiscar.</p>
-            </div>
-            <div class="menu-grid"></div>
-          </section>
-
-          <section class="menu-group" data-menu-group="porcoes">
-            <div class="menu-group-heading">
-              <h3>Porcoes</h3>
-              <p>Porcoes para compartilhar ou acompanhar.</p>
-            </div>
-            <div class="menu-grid"></div>
-          </section>
-
-          <section class="menu-group" data-menu-group="sobremesas">
-            <div class="menu-group-heading">
-              <h3>Sobremesas</h3>
-              <p>Doces para fechar a refeicao com chave de ouro.</p>
-            </div>
-            <div class="menu-grid"></div>
-          </section>
+        <div class="menu-groups" id="dynamicMenuGroups">
         </div>
       </section>
 
       <section id="pedido" class="order-section" aria-labelledby="pedido-titulo">
+        <button id="closeCheckoutButton" class="checkout-close hidden" type="button" aria-label="Fechar pedido">×</button>
         <div class="section-heading">
           <p class="eyebrow">Pedido direto</p>
           <h2 id="pedido-titulo">Finalize direto pelo site</h2>
-          <p>O pedido entra no painel do restaurante com itens, endereco, forma de pagamento e observacoes.</p>
+          <p>O pedido entra no painel do restaurante com itens, endereço, forma de pagamento e observações.</p>
         </div>
 
         <div class="order-layout">
@@ -210,6 +121,11 @@
               <input id="customerName" type="text" placeholder="Ex: Ana Souza" required>
             </label>
 
+            <label>
+              <span>WhatsApp ou telefone</span>
+              <input id="customerPhone" type="tel" inputmode="tel" placeholder="Ex: 69 99999-9999" required>
+            </label>
+
             <div class="form-row">
               <label>
                 <span>Recebimento</span>
@@ -223,14 +139,21 @@
                 <select id="paymentMethod">
                   <option value="Pix">Pix</option>
                   <option value="Dinheiro">Dinheiro</option>
-                  <option value="Cartao">Cartao</option>
+                  <option value="Cartao">Cartão</option>
                 </select>
               </label>
             </div>
 
             <label>
-              <span>Endereco ou ponto de referencia</span>
-              <input id="customerAddress" type="text" placeholder="Rua, numero, bairro ou retirada">
+              <span>Endereço ou ponto de referência</span>
+              <input id="customerAddress" type="text" placeholder="Rua, número, bairro ou retirada">
+            </label>
+
+            <label id="tableField" class="conditional-field hidden">
+              <span>Mesa para consumo local</span>
+              <select id="tableSelect">
+                <option value="">Selecione uma mesa livre</option>
+              </select>
             </label>
 
             <label id="changeForField" class="conditional-field hidden">
@@ -239,8 +162,8 @@
             </label>
 
             <label>
-              <span>Observacoes</span>
-              <textarea id="customerNote" rows="4" placeholder="Ex: sem cebola, entregar no portao, mandar talher..."></textarea>
+              <span>Observações</span>
+              <textarea id="customerNote" rows="4" placeholder="Ex: sem cebola, entregar no portão, mandar talher..."></textarea>
             </label>
 
             <div class="form-actions">
@@ -252,10 +175,64 @@
               <div class="confirmation-icon" aria-hidden="true">✓</div>
               <p class="eyebrow">Pedido confirmado</p>
               <h3>Seu pedido foi enviado para o restaurante.</h3>
-              <p id="confirmationText">Acompanhe pelo atendimento do Sabor de Mae.</p>
-              <a id="whatsappFallback" class="secondary-action" href="#" target="_blank" rel="noreferrer">Enviar tambem pelo WhatsApp</a>
+              <p id="confirmationText">Acompanhe pelo atendimento do Sabor de Mãe.</p>
+              <a id="whatsappFallback" class="secondary-action" href="#" target="_blank" rel="noreferrer">Enviar também pelo WhatsApp</a>
             </div>
           </form>
+        </div>
+      </section>
+
+      <section id="rastreamento" class="tracking-section hidden">
+        <div class="section-heading">
+          <p class="eyebrow">Acompanhe seu pedido</p>
+          <h2>Status em tempo real</h2>
+          <p>Aqui você vê o andamento da sua comanda diretamente na cozinha do restaurante.</p>
+        </div>
+        <div class="tracking-card">
+          <div id="trackingSearchBox" class="tracking-search-box">
+            <p>Informe o código do seu pedido para acompanhar:</p>
+            <div class="search-row">
+              <input id="trackingCodeInput" placeholder="Ex: ABC12345">
+              <button id="searchTrackingButton" type="button">Acompanhar</button>
+            </div>
+            <div id="recentOrdersBox" class="recent-orders-box hidden">
+              <p class="recent-title">Pedidos recentes:</p>
+              <div id="recentOrdersList" class="recent-orders-list"></div>
+            </div>
+          </div>
+          <div id="trackingInfoBox" class="tracking-info-box hidden">
+            <div class="tracking-header">
+              <div>
+                <h3 id="trackCustomerName">Cliente</h3>
+                <span id="trackOrderTime" class="muted">Hora</span>
+              </div>
+              <span id="trackStatusBadge" class="status-badge novo">Novo</span>
+            </div>
+            <div class="tracking-stepper">
+              <div class="step" data-step="novo">
+                <div class="step-icon">✓</div>
+                <span>Enviado</span>
+              </div>
+              <div class="step" data-step="aceito">
+                <div class="step-icon">✓</div>
+                <span>Aceito</span>
+              </div>
+              <div class="step" data-step="preparando">
+                <div class="step-icon">✓</div>
+                <span>Preparando</span>
+              </div>
+              <div class="step" data-step="finalizado">
+                <div class="step-icon">✓</div>
+                <span>Pronto/Entregue</span>
+              </div>
+            </div>
+            <div id="trackOrderItemsSummary" class="track-items-summary"></div>
+            <div class="track-footer">
+              <span>Total: <strong id="trackOrderTotal">R$ 0,00</strong></span>
+              <button id="clearTrackingButton" class="ghost-button" type="button">Buscar outro pedido</button>
+            </div>
+          </div>
+          <p id="trackingMessage" class="field-hint text-center"></p>
         </div>
       </section>
 
@@ -263,10 +240,9 @@
         <div class="location-copy">
           <p class="eyebrow">Atendimento</p>
           <h2>Comida caseira, pedido direto e retirada facilitada.</h2>
-          <p>Fale com o Sabor de Mae pelo WhatsApp para combinar entrega, retirada ou tirar duvidas sobre o cardapio do dia.</p>
+          <p>Fale com o Sabor de Mãe pelo chat para combinar entrega, retirada ou tirar dúvidas sobre o cardápio do dia.</p>
           <div class="location-actions">
             <a class="primary-action" href="#pedido">Montar pedido</a>
-            <a class="secondary-action" href="https://wa.me/5569992824311" target="_blank" rel="noreferrer">Chamar no WhatsApp</a>
           </div>
         </div>
 
@@ -277,31 +253,118 @@
             <p>Atendimento para retirada no restaurante, entrega combinada e pedidos diretos.</p>
             <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Rua%20Rio%20Negro%201890" target="_blank" rel="noreferrer">Abrir no mapa</a>
           </div>
-          <div class="service-grid" aria-label="Informacoes de atendimento">
+          <div class="service-grid" aria-label="Informações de atendimento">
             <article>
               <strong>Retirada</strong>
-              <span>Combine o melhor horario pelo WhatsApp.</span>
+              <span>Combine o melhor horário pelo WhatsApp.</span>
             </article>
             <article>
               <strong>Entrega</strong>
-              <span>Disponivel conforme localidade e horario.</span>
+              <span>Disponível conforme localidade e horário.</span>
             </article>
           </div>
         </div>
       </section>
     </main>
 
-    <footer class="site-footer">
-      <div>
-        <strong>Sabor de Mae</strong>
-        <span>Rua Rio Negro, 1890</span>
+    <section class="slogan-section">
+      <div class="slogan-content">
+        <img src="assets/chef-sabor-de-mae.png" alt="Chef do Sabor de Mãe" class="slogan-photo">
+        <div class="slogan-text">
+          <p class="eyebrow">Nossa essência</p>
+          <h2>"Aqui cada prato é feito com o mesmo carinho que a mãe faz em casa."</h2>
+          <p>Comida caseira de verdade, feita com amor e ingredientes frescos todos os dias.</p>
+        </div>
       </div>
-      <a href="https://wa.me/5569992824311" target="_blank" rel="noreferrer">Pedido direto pelo WhatsApp</a>
+    </section>
+
+    <footer class="site-footer">
+      <div class="footer-brand">
+        <strong>Sabor de Mãe</strong>
+        <span>Comida caseira, marmitex e atendimento direto.</span>
+      </div>
+      <div class="footer-info">
+        <span>Rua Rio Negro, 1890</span>
+        <span>Retirada, entrega combinada e consumo local.</span>
+      </div>
     </footer>
 
+    <div id="cartOverlay" class="cart-overlay hidden"></div>
+
+    <button id="floatingCartButton" class="floating-cart hidden" type="button" aria-label="Abrir carrinho">
+      <span class="floating-cart-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" focusable="false">
+          <path d="M7.2 8.3V7.1a4.8 4.8 0 0 1 9.6 0v1.2"></path>
+          <path d="M5.8 8.3h12.4l1.1 11.1a2 2 0 0 1-2 2.2H6.7a2 2 0 0 1-2-2.2L5.8 8.3Z"></path>
+        </svg>
+      </span>
+      <span class="floating-cart-copy">
+        <em id="floatingCartTotal">R$ 0,00</em>
+        <small><span id="floatingCartCount">0</span> <span id="floatingCartLabel">itens</span></small>
+      </span>
+      <strong class="sr-only">Ver pedido</strong>
+    </button>
+
+    <div id="cartToast" class="cart-toast hidden" role="status">
+      <strong id="cartToastTitle">Item adicionado</strong>
+      <span id="cartToastText">Seu pedido foi atualizado.</span>
+    </div>
+
+    <aside class="chat-widget" aria-label="Atendimento do restaurante">
+      <button id="chatToggle" class="chat-toggle" type="button">
+        <span class="chat-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <path d="M4.8 6.3A7.4 7.4 0 0 1 12 3.8c4.2 0 7.6 2.9 7.6 6.6s-3.4 6.6-7.6 6.6c-.8 0-1.6-.1-2.3-.3L5 19.4l1.2-4.2a6.1 6.1 0 0 1-1.4-3.9Z"></path>
+            <path d="M8.7 10.4h6.6M8.7 13h4.2"></path>
+          </svg>
+        </span>
+        <span class="chat-toggle-copy">
+          <em>Chat</em>
+          <strong>Falar com o restaurante</strong>
+        </span>
+      </button>
+      <section id="chatPanel" class="chat-panel hidden">
+        <div class="chat-header">
+          <span class="chat-icon chat-icon-large" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path d="M4.8 6.3A7.4 7.4 0 0 1 12 3.8c4.2 0 7.6 2.9 7.6 6.6s-3.4 6.6-7.6 6.6c-.8 0-1.6-.1-2.3-.3L5 19.4l1.2-4.2a6.1 6.1 0 0 1-1.4-3.9Z"></path>
+              <path d="M8.7 10.4h6.6M8.7 13h4.2"></path>
+            </svg>
+          </span>
+          <div>
+            <p class="eyebrow">Chat do restaurante</p>
+            <h2>Sabor de Mãe</h2>
+            <span>Envie sua dúvida e acompanhe a resposta por aqui.</span>
+          </div>
+          <button id="chatClose" type="button" aria-label="Fechar atendimento">×</button>
+        </div>
+        <div id="chatMessages" class="chat-messages">
+          <p class="chat-empty">Envie uma mensagem para abrir um atendimento no restaurante.</p>
+        </div>
+        <form id="chatForm" class="chat-form">
+          <div id="chatIdentityFields" class="chat-identity-fields">
+          <label>
+            Nome
+            <input id="chatName" required placeholder="Seu nome">
+          </label>
+          <label>
+            Telefone opcional
+            <input id="chatContact" inputmode="tel" placeholder="WhatsApp ou telefone">
+          </label>
+          </div>
+          <label class="wide">
+            Mensagem
+            <textarea id="chatMessage" required rows="3" placeholder="Ex: Oi, queria saber se tem entrega agora."></textarea>
+          </label>
+          <button id="chatSubmitButton" type="submit">Enviar mensagem</button>
+          <p id="chatStatus" class="chat-status" role="status"></p>
+        </form>
+      </section>
+    </aside>
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="supabase-config.js"></script>
-    <script src="supabase-client.js?v=orders1"></script>
-    <script src="site.js?v=confirm1"></script>
+    <script src="supabase-config.js?v=backend1"></script>
+    <script src="supabase-client.js?v=nomes1"></script>
+    <script src="site.js?v=theme3"></script>
   </body>
 </html>

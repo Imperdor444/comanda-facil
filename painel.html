@@ -4,40 +4,73 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#7a271c">
-    <title>Painel | Sabor de Mae</title>
-    <link rel="icon" href="icon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="painel.css?v=print1">
+    <title>Painel | Sabor de Mãe</title>
+    <link rel="stylesheet" href="painel.css?v=printlock1">
   </head>
   <body>
     <header class="panel-topbar">
       <a class="brand" href="index.html">
-        <span>Sabor de Mae</span>
+        <span>Sabor de Mãe</span>
         <small>Painel do restaurante</small>
       </a>
       <nav aria-label="Atalhos do painel">
         <a href="index.html">Site</a>
+        <a href="painel.html?v=clientes1">Painel</a>
         <button id="signOutButton" class="ghost-button hidden" type="button">Sair</button>
       </nav>
     </header>
 
     <main class="panel-shell">
-      <section id="loginView" class="login-card">
-        <p class="eyebrow">Acesso seguro</p>
-        <h1>Entrar no painel</h1>
-        <p class="muted">Use o e-mail cadastrado no Supabase para acompanhar pedidos e editar o cardapio.</p>
+      <section id="loginView" class="vip-login-wrapper">
+        <div class="vip-login-card">
+          <div class="vip-login-header">
+            <div class="vip-logo-icon">🛡️</div>
+            <h2>ADMIN PANEL</h2>
+            <p>Painel Administrativo — Sabor de Mãe</p>
+          </div>
 
-        <form id="loginForm" class="stacked-form">
-          <label>
-            E-mail
-            <input id="loginEmail" type="email" autocomplete="email" required placeholder="restaurante@email.com">
-          </label>
-          <label>
-            Senha
-            <input id="loginPassword" type="password" autocomplete="current-password" required placeholder="Sua senha">
-          </label>
-          <button class="primary-button" type="submit">Entrar</button>
-        </form>
-        <p id="loginMessage" class="message" role="status"></p>
+          <form id="loginForm" class="vip-form">
+            <div class="vip-input-group">
+              <label><span class="icon">👤</span> E-MAIL</label>
+              <input id="loginEmail" type="email" autocomplete="email" required placeholder="Digite seu e-mail">
+            </div>
+
+            <div class="vip-input-group">
+              <label><span class="icon">🔒</span> SENHA</label>
+              <input id="loginPassword" type="password" autocomplete="current-password" required placeholder="••••••••">
+            </div>
+
+            <label class="vip-checkbox">
+              <input type="checkbox" id="keepConnected">
+              <span>Manter conectado</span>
+            </label>
+
+            <div class="vip-captcha-box">
+              <div class="captcha-header">
+                <span class="icon">🛡️</span> VERIFICAÇÃO DE SEGURANÇA
+              </div>
+              <div class="captcha-body">
+                <div class="captcha-math">
+                  <span id="captchaNum1">12</span> + <span id="captchaNum2">3</span> =
+                </div>
+                <input type="number" id="captchaAnswer" required placeholder="?">
+                <button type="button" id="captchaRefresh" class="captcha-refresh" aria-label="Atualizar">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <button class="vip-btn" type="submit">
+              <span class="icon">➜</span> ENTRAR
+            </button>
+          </form>
+          <p id="loginMessage" class="vip-message" role="status"></p>
+
+          <div class="vip-login-footer">
+            <a href="index.html">← Voltar ao site</a>
+            <p><span class="icon" style="color:var(--green);">🔒</span> Conexão protegida • Acesso restrito</p>
+          </div>
+        </div>
       </section>
 
       <section id="dashboardView" class="dashboard hidden">
@@ -45,7 +78,7 @@
           <div>
             <p class="eyebrow">Operacao</p>
             <h1>Painel administrativo</h1>
-            <p class="muted">Acompanhe pedidos recebidos pelo site e mantenha o cardapio atualizado.</p>
+            <p class="muted">Acompanhe pedidos recebidos pelo site e mantenha o cardápio atualizado.</p>
           </div>
           <div class="header-actions">
             <button id="soundButton" class="ghost-button" type="button">Ativar som</button>
@@ -59,11 +92,12 @@
           <span id="lastUpdateText">Atualizando agora</span>
         </div>
 
-        <section class="print-settings" aria-label="Impressao automatica">
+        <section id="printSettingsBox" class="print-settings is-locked" aria-label="Impressao automatica">
           <div>
             <p class="eyebrow">Impressao</p>
             <h2>Impressora termica</h2>
             <p class="muted">Deixe o servidor local ligado neste computador para imprimir pedidos novos automaticamente.</p>
+            <button id="unlockPrintButton" class="ghost-button" type="button">Abrir ajustes de impressao</button>
           </div>
           <form id="printSettingsForm" class="print-form">
             <label class="switch-row">
@@ -81,10 +115,6 @@
             <label>
               Porta
               <input id="printerPort" type="number" min="1" max="65535" placeholder="9100">
-            </label>
-            <label>
-              API Key (opcional)
-              <input id="printApiKey" type="password" placeholder="Deixe vazio se nao configurou PRINT_API_KEY">
             </label>
             <div class="form-actions wide">
               <button class="primary-button" type="submit">Salvar impressao</button>
@@ -107,11 +137,19 @@
             <span>Produtos ativos</span>
             <strong id="activeProductsMetric">0</strong>
           </article>
+          <article>
+            <span>Atendimentos novos</span>
+            <strong id="newChatsMetric">0</strong>
+          </article>
         </section>
 
         <div class="tabs" role="tablist" aria-label="Secoes do painel">
           <button class="tab-button active" data-panel-tab="orders" type="button">Pedidos</button>
+          <button class="tab-button" data-panel-tab="chat" type="button">Atendimento</button>
+          <button class="tab-button" data-panel-tab="tables" type="button">Mesas</button>
           <button class="tab-button" data-panel-tab="products" type="button">Produtos</button>
+          <button class="tab-button" data-panel-tab="categories" type="button">Categorias</button>
+          <button class="tab-button" data-panel-tab="blocks" type="button">Bloqueios</button>
         </div>
 
         <section id="ordersPanel" class="panel-section">
@@ -132,10 +170,93 @@
           <div id="ordersList" class="orders-list"></div>
         </section>
 
+        <section id="chatPanelAdmin" class="panel-section hidden">
+          <div class="section-title">
+            <div>
+              <p class="eyebrow">Chat do site</p>
+              <h2>Atendimentos abertos</h2>
+            </div>
+            <button id="refreshChatButton" class="ghost-button" type="button">Atualizar chat</button>
+          </div>
+          <div class="chat-tools">
+            <div class="segmented-control" role="tablist" aria-label="Visualizacao de atendimentos">
+              <button class="active" data-chat-view="open" type="button">Abertos</button>
+              <button data-chat-view="history" type="button">Histórico</button>
+            </div>
+            <input id="ticketSearch" placeholder="Buscar por nome, contato ou mensagem">
+            <select id="ticketPeriodFilter" aria-label="Período do histórico">
+              <option value="7">Últimos 7 dias</option>
+              <option value="30">Últimos 30 dias</option>
+              <option value="90">Últimos 90 dias</option>
+              <option value="all">Todo histórico</option>
+            </select>
+          </div>
+          <div class="chat-admin-layout">
+            <div id="ticketsList" class="tickets-list"></div>
+            <div class="ticket-conversation">
+              <div id="ticketConversationHeader" class="ticket-conversation-header">
+                <p class="muted">Selecione um atendimento para responder.</p>
+              </div>
+              <div id="ticketMessages" class="ticket-messages"></div>
+              <form id="ticketReplyForm" class="ticket-reply-form hidden">
+                <div class="quick-replies" style="display:flex; gap:8px; margin-bottom:10px; flex-wrap:wrap;">
+                  <button type="button" class="quick-reply-btn" style="padding:4px 8px; border:1px solid var(--line); border-radius:6px; background:var(--bg); cursor:pointer; font-size:0.75rem;" data-text="Olá! Seu pedido foi recebido e já está em preparação.">Recebido</button>
+                  <button type="button" class="quick-reply-btn" style="padding:4px 8px; border:1px solid var(--line); border-radius:6px; background:var(--bg); cursor:pointer; font-size:0.75rem;" data-text="O seu pedido acabou de sair para entrega! 🛵">Saiu para entrega</button>
+                  <button type="button" class="quick-reply-btn" style="padding:4px 8px; border:1px solid var(--line); border-radius:6px; background:var(--bg); cursor:pointer; font-size:0.75rem;" data-text="Seu pedido está pronto para ser retirado no balcão.">Pronto p/ retirada</button>
+                  <button type="button" class="quick-reply-btn" style="padding:4px 8px; border:1px solid var(--line); border-radius:6px; background:var(--bg); cursor:pointer; font-size:0.75rem;" data-text="Olá! Tudo bem? Em que posso te ajudar hoje?">Saudação</button>
+                </div>
+                <textarea id="ticketReplyMessage" required rows="3" placeholder="Digite a resposta para o cliente"></textarea>
+                <div class="form-actions">
+                  <button class="primary-button" type="submit">Responder</button>
+                  <button id="resolveTicketButton" class="ghost-button" type="button">Marcar resolvido</button>
+                  <button id="reopenTicketButton" class="ghost-button hidden" type="button">Reabrir</button>
+                  <button id="copyTicketButton" class="ghost-button" type="button">Copiar conversa</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <section id="tablesPanel" class="panel-section hidden">
+          <div class="section-title">
+            <div>
+              <p class="eyebrow">Consumo local</p>
+              <h2>Mesas</h2>
+            </div>
+          </div>
+
+          <form id="tableForm" class="product-form">
+            <input id="tableId" type="hidden">
+            <label>
+              Nome da mesa
+              <input id="tableName" required placeholder="Ex: Mesa 1">
+            </label>
+            <label>
+              Status
+              <select id="tableStatus" required>
+                <option value="livre">Livre</option>
+                <option value="ocupada">Ocupada</option>
+                <option value="pausada">Pausada</option>
+              </select>
+            </label>
+            <input id="tableOrder" type="hidden">
+            <label class="switch-row">
+              <input id="tableActive" type="checkbox" checked>
+              Mesa aparece no site
+            </label>
+            <div class="form-actions wide">
+              <button class="primary-button" type="submit">Salvar mesa</button>
+              <button id="clearTableButton" class="ghost-button" type="button">Nova mesa</button>
+            </div>
+          </form>
+
+          <div id="tablesList" class="products-list"></div>
+        </section>
+
         <section id="productsPanel" class="panel-section hidden">
           <div class="section-title">
             <div>
-              <p class="eyebrow">Cardapio</p>
+              <p class="eyebrow">Cardápio</p>
               <h2>Produtos</h2>
             </div>
           </div>
@@ -150,8 +271,11 @@
               Categoria
               <select id="productCategory" required>
                 <option value="marmitex">Marmitex</option>
+                <option value="espetinhos">Espetinhos</option>
+                <option value="porcoes">Porções</option>
                 <option value="local">Consumo local</option>
                 <option value="bebidas">Bebidas</option>
+                <option value="sobremesas">Sobremesas</option>
               </select>
             </label>
             <label>
@@ -161,16 +285,33 @@
             <input id="productOrder" type="hidden">
             <label class="wide">
               Descricao
-              <textarea id="productDescription" rows="3" placeholder="Texto que aparece no cardapio"></textarea>
+              <textarea id="productDescription" rows="3" placeholder="Texto que aparece no cardápio"></textarea>
             </label>
             <label class="wide">
-              Imagem
+              Imagem por URL ou upload
               <div class="image-upload-row">
-                <input id="productImage" placeholder="assets/marmitex-menu.png ou URL da foto">
+                <input id="productImage" placeholder="Cole aqui um link direto da foto ou envie uma imagem">
                 <label class="upload-button" for="productImageFile">Enviar foto</label>
                 <input id="productImageFile" class="file-input" type="file" accept="image/*">
               </div>
-              <span id="imageUploadMessage" class="field-hint">Use uma foto quadrada ou horizontal, com boa luz.</span>
+              <span id="imageUploadMessage" class="field-hint">Se deixar vazio, o sistema usa uma imagem padrao.</span>
+            </label>
+            <label class="wide">
+              Tags (Selos de Destaque)
+              <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:6px;">
+                <label style="display:flex; align-items:center; gap:6px; font-weight:normal; flex-direction:row;"><input type="checkbox" name="productTags" value="Mais Vendido" style="width:18px; height:18px; padding:0; flex-shrink:0;"> Mais Vendido</label>
+                <label style="display:flex; align-items:center; gap:6px; font-weight:normal; flex-direction:row;"><input type="checkbox" name="productTags" value="Lançamento" style="width:18px; height:18px; padding:0; flex-shrink:0;"> Lançamento</label>
+                <label style="display:flex; align-items:center; gap:6px; font-weight:normal; flex-direction:row;"><input type="checkbox" name="productTags" value="Promoção" style="width:18px; height:18px; padding:0; flex-shrink:0;"> Promoção</label>
+                <label style="display:flex; align-items:center; gap:6px; font-weight:normal; flex-direction:row;"><input type="checkbox" name="productTags" value="Sem Glúten" style="width:18px; height:18px; padding:0; flex-shrink:0;"> Sem Glúten</label>
+                <label style="display:flex; align-items:center; gap:6px; font-weight:normal; flex-direction:row;"><input type="checkbox" name="productTags" value="Vegetariano" style="width:18px; height:18px; padding:0; flex-shrink:0;"> Vegetariano</label>
+              </div>
+            </label>
+            <label class="wide">
+              Complementos (Adicionais)
+              <p class="field-hint" style="margin-top:0;">Configure opções extras para o cliente escolher (ex: Ponto da carne, Adicionais).</p>
+              <div id="addonsBuilder" style="display:grid; gap:10px; margin-top:8px;"></div>
+              <button type="button" id="addAddonGroupBtn" class="ghost-button" style="margin-top:8px; width:fit-content;">+ Adicionar Grupo de Opções</button>
+              <input type="hidden" id="productAddons" value="[]">
             </label>
             <label class="switch-row">
               <input id="productActive" type="checkbox" checked>
@@ -179,17 +320,72 @@
             <div class="form-actions wide">
               <button class="primary-button" type="submit">Salvar produto</button>
               <button id="clearProductButton" class="ghost-button" type="button">Novo produto</button>
+              <button id="deleteProductButton" class="ghost-button hidden" type="button" style="color:var(--red); border-color:var(--red); margin-left:auto;">Excluir produto</button>
             </div>
           </form>
 
           <div id="productsList" class="products-list"></div>
         </section>
+
+        <section id="categoriesPanel" class="panel-section hidden">
+          <div class="section-title">
+            <div>
+              <p class="eyebrow">Organização</p>
+              <h2>Categorias do Menu</h2>
+            </div>
+          </div>
+
+          <form id="categoryForm" class="product-form">
+            <input id="categoryId" type="hidden">
+            <label>
+              Nome da Categoria
+              <input id="categoryName" required placeholder="Ex: Bebidas Quentes">
+            </label>
+            <label>
+              Slug (Identificador URL)
+              <input id="categorySlug" required placeholder="Ex: bebidas-quentes" pattern="[a-z0-9\-]+" title="Apenas letras minúsculas, números e hifens">
+            </label>
+            <input id="categoryOrder" type="hidden">
+            <div class="form-actions wide">
+              <button class="primary-button" type="submit">Salvar categoria</button>
+              <button id="clearCategoryButton" class="ghost-button" type="button">Nova categoria</button>
+              <button id="deleteCategoryButton" class="ghost-button hidden" type="button" style="color:var(--red); border-color:var(--red); margin-left:auto;">Excluir categoria</button>
+            </div>
+          </form>
+
+          <div id="categoriesList" class="products-list"></div>
+        </section>
+
+        <section id="blocksPanel" class="panel-section hidden">
+          <div class="section-title">
+            <div>
+              <p class="eyebrow">Segurança</p>
+              <h2>Clientes Bloqueados</h2>
+            </div>
+          </div>
+
+          <form id="blockForm" class="product-form">
+            <label>
+              Telefone para bloquear (apenas números com DDD, ex: 69999999999)
+              <input id="blockPhone" required placeholder="Ex: 69999999999">
+            </label>
+            <label class="wide">
+              Motivo do bloqueio
+              <input id="blockReason" required placeholder="Ex: Trote recorrente">
+            </label>
+            <div class="form-actions wide">
+              <button class="primary-button" type="submit">Bloquear cliente</button>
+            </div>
+          </form>
+
+          <div id="blocksList" class="products-list" style="margin-top: 2rem;"></div>
+        </section>
       </section>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="supabase-config.js?v=supabase2"></script>
-    <script src="supabase-client.js?v=supabase1"></script>
-    <script src="painel.js?v=print1"></script>
+    <script src="supabase-config.js?v=nomes1"></script>
+    <script src="supabase-client.js?v=nomes1"></script>
+    <script src="painel.js?v=urlFix1"></script>
   </body>
 </html>
